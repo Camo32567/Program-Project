@@ -1,2 +1,2 @@
 # Program-Project
-Javascript program 
+Brick Breaker Plan - JAVASCRIPT
