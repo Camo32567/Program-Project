@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Breakers</title>
+</head>
+
+<body>
+    <canvas id="gameCanvas" width="800" height="500"></canvas>
+
+    <script>
+        //player / bouncer
+        var playerXpos = 0;
+        var playerYpos = 0;
+        var playerXspeed = 8;
+        const PLAYER_HEIGHT = 15;
+        const PLAYER_WIDTH = 80;
+        //Button presses
+        const LEFT_KEY = 65;
+        const RIGHT_KEY = 68;
+        var leftKeyPressed = false;
+        var rightKeyPressed = false;
+
+
+        window.onload = function() {
+            canvas = document.getElementById('gameCanvas');
+            canvasContext = canvas.getContext('2d');
+            setInterval(mainLoop, 1000 / 50);
+        }
+
+        function mainLoop() {
+            colorRect(0, 0, canvas.width, canvas.height, 'gray'); //background
+            colorRect(playerXpos, canvas.height - PLAYER_HEIGHT, PLAYER_WIDTH, PLAYER_HEIGHT, 'blue'); //Player / bouncer
+            
+        }
+
+
+
+        function colorRect(x, y, w, h, color) {
+            canvasContext.fillStyle = color;
+            canvasContext.fillRect(x, y, w, h);
+        }
+    </script>
+
+</body>
+
+</html>
