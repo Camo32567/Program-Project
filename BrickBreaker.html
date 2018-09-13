@@ -7,7 +7,7 @@
 
 <body>
     <canvas id="gameCanvas" width="800" height="500"></canvas>
-
+    <script src="Bouncer.js" ></script>
     <script>
         //player / bouncer
         var playerXpos = 0;
@@ -15,6 +15,9 @@
         var playerXspeed = 8;
         const PLAYER_HEIGHT = 15;
         const PLAYER_WIDTH = 80;
+        
+        var bouncer = new Bouncer(playerXpos,playerYpos,PLAYER_HEIGHT,PLAYER_WIDTH,"blue",playerXspeed)
+        
         //Button presses
         const LEFT_KEY = 65;
         const RIGHT_KEY = 68;
@@ -25,19 +28,18 @@
         window.onload = function() {
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
-            setInterval(mainLoop, 1000 / 50);
+            setInterval(mainLoop, 1000 / 60);
         }
 
         function mainLoop() {
             colorRect(0, 0, canvas.width, canvas.height, 'gray'); //background
-            colorRect(playerXpos, canvas.height - PLAYER_HEIGHT, PLAYER_WIDTH, PLAYER_HEIGHT, 'blue'); //Player / bouncer
+            colorRect(playerXpos, playerXpos, PLAYER_WIDTH, PLAYER_HEIGHT, 'blue'); //Player / bouncer
             
         }
 
 
-
-        function colorRect(x, y, w, h, color) {
-            canvasContext.fillStyle = color;
+        function colorRect(x, y, w, h,c) {
+            canvasContext.fillStyle = c;
             canvasContext.fillRect(x, y, w, h);
         }
     </script>
