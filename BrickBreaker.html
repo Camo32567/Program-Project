@@ -7,43 +7,68 @@
 
 <body>
     <canvas id="gameCanvas" width="800" height="500"></canvas>
-    <script src="Bouncer.js" ></script>
+    <script src="Bouncer.js"></script>
+    <script src="Ball.js"></script>
     <script>
         //player / bouncer
         var playerXpos = 0;
         var playerYpos = 0;
-        var playerXspeed = 8;
         const PLAYER_HEIGHT = 15;
-        const PLAYER_WIDTH = 80;
-        
-        var bouncer = new Bouncer(playerXpos,playerYpos,PLAYER_HEIGHT,PLAYER_WIDTH,"blue",playerXspeed)
-        
+        const PLAYER_WIDTH = 120;
+        var playerXspeed = 10;
+
+        var bouncer = new Bouncer(playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT, 'blue', playerXspeed);
+        var ball = new Ball(ballXpos, ballYpos, BALL_RADIUS, 'red', ballXspeed, ballYspeed);
+
         //Button presses
         const LEFT_KEY = 65;
         const RIGHT_KEY = 68;
         var leftKeyPressed = false;
         var rightKeyPressed = false;
 
-
         window.onload = function() {
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
+
+            document.addEventListener('keydown', keyPress);
+            document.addEventListener('keyup', keyRelease);
+
             setInterval(mainLoop, 1000 / 60);
         }
 
         function mainLoop() {
             colorRect(0, 0, canvas.width, canvas.height, 'gray'); //background
-            colorRect(playerXpos, playerXpos, PLAYER_WIDTH, PLAYER_HEIGHT, 'blue'); //Player / bouncer
             
+            ball.drawBall();
+            ball.ballMove();
+            
+            bouncer.drawBouncer(); // draws the player/bouncer from bouncer.js
+            bouncer.playerMove(); // makes it so the player can move when keys are pressed form bouncer.js
         }
 
+        function keyPress(evt) { //Checks to see if following keys are being pressed
+            if (evt.keyCode == LEFT_KEY) {
+                leftKeyPressed = true;
+            }
+            if (evt.keyCode == RIGHT_KEY) {
+                rightKeyPressed = true;
+            }
+        }
 
-        function colorRect(x, y, w, h,c) {
+        function keyRelease(evt) { //Chechs to see if following keys have been released
+            if (evt.keyCode == LEFT_KEY) {
+                leftKeyPressed = false;
+            }
+            if (evt.keyCode == RIGHT_KEY) {
+                rightKeyPressed = false;
+            }
+        }
+
+        function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
             canvasContext.fillRect(x, y, w, h);
         }
     </script>
-
 </body>
 
 </html>
