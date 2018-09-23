@@ -1,30 +1,41 @@
- var ballXpos = 400;
- var ballYpos = 250;
- var ballXspeed = 5;
- var ballYspeed = 5;
- const BALL_RADIUS = 15;
+var ballXpos = 0;
+var ballYpos = 0;
+const BALL_WIDTH = 10;
+const BALL_HEIGHT = 10;
+var ballXspeed = 4;
+var ballYspeed = 2;
 
+class Ball {
+    constructor(x, y, w, h, c, xSpeed, ySpeed) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.c = c;
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
+    }
+    drawBall() {
+        canvasContext.fillStyle = this.c;
+        canvasContext.fillRect(this.x, this.y, this.w, this.h);
+    }
 
- class Ball {
-     constructor(x, y, r, c, xSpeed, ySpeed) {
-         this.x = x;
-         this.y = y;
-         this.r = r;
-         this.c = c;
-         this.xSpeed = xSpeed;
-         this.yspeed = ySpeed;
-     }
+    ballMove() {
+        this.x = this.x + this.xSpeed;
+        this.y = this.y + this.ySpeed;
 
-     drawBall() {
-         canvasContext.fillStyle = this.c;
-         canvasContext.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
-         canvasContext.fill();
-         canvasContext.stroke();
-     }
-     
-     ballMove() {
-         this.x = this.x + this.xSpeed;
-         this.y = this.y + this.ySpeed;
-     }
+        if (this.x < 0) {
+            this.xSpeed = this.xSpeed *-1;
+        }
+        if (this.x > canvas.width) {
+            this.xSpeed = this.xSpeed * -1;
+        }
+        if (this.y > canvas.height) {
+            this.ySpeed = this.ySpeed * -1;
+        }
+        if (this.y < 0) {
+            this.ySpeed = this.ySpeed *-1;
+        }
+    }
 
- }
+}

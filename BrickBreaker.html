@@ -18,8 +18,8 @@
         var playerXspeed = 10;
 
         var bouncer = new Bouncer(playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT, 'blue', playerXspeed);
-        var ball = new Ball(ballXpos, ballYpos, BALL_RADIUS, 'red', ballXspeed, ballYspeed);
-
+        var ball = new Ball(ballXpos, ballYpos, BALL_WIDTH, BALL_HEIGHT, 'red', ballXspeed, ballYspeed);
+        
         //Button presses
         const LEFT_KEY = 65;
         const RIGHT_KEY = 68;
@@ -38,10 +38,10 @@
 
         function mainLoop() {
             colorRect(0, 0, canvas.width, canvas.height, 'gray'); //background
-            
+
             ball.drawBall();
             ball.ballMove();
-            
+
             bouncer.drawBouncer(); // draws the player/bouncer from bouncer.js
             bouncer.playerMove(); // makes it so the player can move when keys are pressed form bouncer.js
         }
