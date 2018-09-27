@@ -25,7 +25,7 @@ class Ball {
         this.y = this.y + this.ySpeed;
 
         if (this.x < 0) {
-            this.xSpeed = this.xSpeed *-1;
+            this.xSpeed = this.xSpeed * -1;
         }
         if (this.x > canvas.width) {
             this.xSpeed = this.xSpeed * -1;
@@ -34,8 +34,8 @@ class Ball {
             this.ySpeed = this.ySpeed * -1;
         }
         if (this.y < 0) {
-            this.ySpeed = this.ySpeed *-1;
+            this.ySpeed = 0;
+            this.xSpeed = 0;
         }
     }
-
 }

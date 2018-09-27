@@ -10,6 +10,9 @@
     <script src="Bouncer.js"></script>
     <script src="Ball.js"></script>
     <script>
+        
+        var gameStart = false;
+        
         //player / bouncer
         var playerXpos = 0;
         var playerYpos = 0;
@@ -19,7 +22,7 @@
 
         var bouncer = new Bouncer(playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT, 'blue', playerXspeed);
         var ball = new Ball(ballXpos, ballYpos, BALL_WIDTH, BALL_HEIGHT, 'red', ballXspeed, ballYspeed);
-        
+
         //Button presses
         const LEFT_KEY = 65;
         const RIGHT_KEY = 68;
@@ -38,13 +41,26 @@
 
         function mainLoop() {
             colorRect(0, 0, canvas.width, canvas.height, 'gray'); //background
-
+            
             ball.drawBall();
             ball.ballMove();
+            BallCollsion();
 
             bouncer.drawBouncer(); // draws the player/bouncer from bouncer.js
             bouncer.playerMove(); // makes it so the player can move when keys are pressed form bouncer.js
         }
+        
+//        function StartGame() {
+//            gameStart = true;
+//        }
+//        
+//        function StartPos() {
+//            if (gameStart = true) {
+//                bouncer.playerYpos = canvas.height - PLAYER_HEIGHT;
+//                bouncer.playerXppos = canvas.width / 2;
+//            }
+//        }
+        
 
         function keyPress(evt) { //Checks to see if following keys are being pressed
             if (evt.keyCode == LEFT_KEY) {
@@ -61,6 +77,15 @@
             }
             if (evt.keyCode == RIGHT_KEY) {
                 rightKeyPressed = false;
+            }
+        }
+
+        function BallCollsion() {
+            if (ball.ballXpos < bouncer.playerXpos + bouncer.PLAYER_WIDTH &&
+                ball.ballXpos + ball.BALL_WIDTH > bouncer.playerXpos){
+
+                ball.ySpeed = ball.ySpeed * -1;
+                console.log("what");
             }
         }
 
