@@ -9,16 +9,16 @@
     <canvas id="gameCanvas" width="800" height="500"></canvas>
     <script src="Bouncer.js"></script>
     <script src="Ball.js"></script>
+    <script src="Brick.js"></script>
     <script>
-        
         var gameStart = false;
-        
+
         //player / bouncer
         var playerXpos = 0;
         var playerYpos = 0;
         const PLAYER_HEIGHT = 15;
         const PLAYER_WIDTH = 120;
-        var playerXspeed = 10;
+        var playerXspeed = 7;
 
         var bouncer = new Bouncer(playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT, 'blue', playerXspeed);
         var ball = new Ball(ballXpos, ballYpos, BALL_WIDTH, BALL_HEIGHT, 'red', ballXspeed, ballYspeed);
@@ -28,6 +28,12 @@
         const RIGHT_KEY = 68;
         var leftKeyPressed = false;
         var rightKeyPressed = false;
+
+        var brickTotal = 13 * 3;
+        var brickCount = 0;
+        var Bricks = [];
+        
+        var gameSetUp = true;
 
         window.onload = function() {
             canvas = document.getElementById('gameCanvas');
@@ -41,26 +47,36 @@
 
         function mainLoop() {
             colorRect(0, 0, canvas.width, canvas.height, 'gray'); //background
-            
+
             ball.drawBall();
             ball.ballMove();
-            BallCollsion();
 
             bouncer.drawBouncer(); // draws the player/bouncer from bouncer.js
             bouncer.playerMove(); // makes it so the player can move when keys are pressed form bouncer.js
+            ball.bouncePaddle();
+            
+            if(gameSetUp){
+                brickSetUp();
+                gameSetUp = false;
+            }
+            if(Bricks.length > 0){
+                 Bricks.forEach(function(brick, index) {
+                    brick.drawBrick();
+                });
+            }
         }
-        
-//        function StartGame() {
-//            gameStart = true;
-//        }
-//        
-//        function StartPos() {
-//            if (gameStart = true) {
-//                bouncer.playerYpos = canvas.height - PLAYER_HEIGHT;
-//                bouncer.playerXppos = canvas.width / 2;
-//            }
-//        }
-        
+
+        //        function StartGame() {
+        //            gameStart = true;
+        //        }
+        //        
+        //        function StartPos() {
+        //            if (gameStart = true) {
+        //                bouncer.playerYpos = canvas.height - PLAYER_HEIGHT;
+        //                bouncer.playerXppos = canvas.width / 2;
+        //            }
+        //        }
+
 
         function keyPress(evt) { //Checks to see if following keys are being pressed
             if (evt.keyCode == LEFT_KEY) {
@@ -80,12 +96,9 @@
             }
         }
 
-        function BallCollsion() {
-            if (ball.ballXpos < bouncer.playerXpos + bouncer.PLAYER_WIDTH &&
-                ball.ballXpos + ball.BALL_WIDTH > bouncer.playerXpos){
-
-                ball.ySpeed = ball.ySpeed * -1;
-                console.log("what");
+        function brickSetUp() {
+            for (i = 0; i < brickTotal; i++) {
+                makeBricks();
             }
         }
 

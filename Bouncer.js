@@ -1,4 +1,4 @@
-class Bouncer {
+class Bouncer { //The class for the player
     constructor(x, y, w, h, c, xSpeed) {
         this.x = x;
         this.y = y;
@@ -7,7 +7,7 @@ class Bouncer {
         this.c = c;
         this.xSpeed = xSpeed;
     }
-    drawBouncer() {
+    drawBouncer() { //The draw function for the player
         canvasContext.fillStyle = this.c;
         canvasContext.fillRect(this.x, this.y, this.w, this.h);
     }
