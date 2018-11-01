@@ -15,13 +15,13 @@
 
         //player / bouncer
         var playerXpos = 0;
-        var playerYpos = 0;
+        var playerYpos = 480;
         const PLAYER_HEIGHT = 15;
         const PLAYER_WIDTH = 120;
         var playerXspeed = 7;
 
-        var bouncer = new Bouncer(playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT, 'blue', playerXspeed);
-        var ball = new Ball(ballXpos, ballYpos, BALL_WIDTH, BALL_HEIGHT, 'red', ballXspeed, ballYspeed);
+        var bouncer = new Bouncer(playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT, 'blue', playerXspeed); //Player 
+        var ball = new Ball(ballXpos, ballYpos, BALL_WIDTH, BALL_HEIGHT, 'red', ballXspeed, ballYspeed); // Ball
 
         //Button presses
         const LEFT_KEY = 65;
@@ -29,11 +29,16 @@
         var leftKeyPressed = false;
         var rightKeyPressed = false;
 
+        //variables for the array of bricks
         var brickTotal = 13 * 3;
         var brickCount = 0;
         var Bricks = [];
-        
+
         var gameSetUp = true;
+
+        var score = 0; //score
+        
+        var gameDif = prompt("Please enter your diffuculty Easy or Hard").toLowerCase(); // prompt to ask game diffuculty
 
         window.onload = function() {
             canvas = document.getElementById('gameCanvas');
@@ -46,37 +51,29 @@
         }
 
         function mainLoop() {
-            colorRect(0, 0, canvas.width, canvas.height, 'gray'); //background
+            colorRect(0, 0, canvas.width, canvas.height, 'black'); //background
+            writeText('15pt Arial', 'white', 'Score: ' + score, 675, 450);
 
+            ball.diffuculty();
+            
             ball.drawBall();
             ball.ballMove();
+            ball.hasCollided();
 
             bouncer.drawBouncer(); // draws the player/bouncer from bouncer.js
             bouncer.playerMove(); // makes it so the player can move when keys are pressed form bouncer.js
             ball.bouncePaddle();
-            
-            if(gameSetUp){
+
+            if (gameSetUp) {
                 brickSetUp();
                 gameSetUp = false;
             }
-            if(Bricks.length > 0){
-                 Bricks.forEach(function(brick, index) {
+            if (Bricks.length > 0) {
+                Bricks.forEach(function(brick, index) {
                     brick.drawBrick();
                 });
             }
         }
-
-        //        function StartGame() {
-        //            gameStart = true;
-        //        }
-        //        
-        //        function StartPos() {
-        //            if (gameStart = true) {
-        //                bouncer.playerYpos = canvas.height - PLAYER_HEIGHT;
-        //                bouncer.playerXppos = canvas.width / 2;
-        //            }
-        //        }
-
 
         function keyPress(evt) { //Checks to see if following keys are being pressed
             if (evt.keyCode == LEFT_KEY) {
@@ -105,6 +102,12 @@
         function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
             canvasContext.fillRect(x, y, w, h);
+        }
+
+        function writeText(style, color, text, x, y) {
+            canvasContext.font = style;
+            canvasContext.fillStyle = color;
+            canvasContext.fillText(text, x, y);
         }
     </script>
 </body>

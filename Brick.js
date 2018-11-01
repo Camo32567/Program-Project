@@ -1,4 +1,4 @@
-class Brick {
+class Brick { //Brick class 
     constructor(x, y, w, h, c) {
         this.x = x;
         this.y = y;
@@ -15,12 +15,12 @@ class Brick {
 
 var brickRows = 0;
 
-function makeBricks() {
+function makeBricks() { // Function that makes the bricks and pusheds them into an array
     var gap = 10;
-    var brickCol = brickCount % 13;
+    var brickCol = brickCount % 13; //13 bricks per row to fill up screen
     
     if(brickCount % 13 == 0 && brickCount > 0){
-       brickRows++;
+       brickRows++; // once there are 13 bricks in a row it starts to make bricks under it
     }
     
     const BRICK_WIDTH = 50;
@@ -30,7 +30,7 @@ function makeBricks() {
     
     console.log(xPos + ':' + yPos);
     
-    var color = 'green';
+    var color = 'white';
 
     var b = new Brick(xPos, yPos, BRICK_WIDTH, BRICK_HEIGHT, color);
     Bricks.push(b);
