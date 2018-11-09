@@ -50,7 +50,7 @@
 
          diffucultyPromt();
         
-        function mainLoop() {
+        function mainLoop() { //main loop that constantly refreshes the game and fucntions to keep them going and moving
             colorRect(0, 0, canvas.width, canvas.height, 'black'); //background
             writeText('15pt Arial', 'white', 'Score: ' + score, 675, 450);
 
@@ -113,17 +113,21 @@
             }
         }
 
-        function colorRect(x, y, w, h, c) {
+        function colorRect(x, y, w, h, c) { //fucntion that draws everything on the screen except score
             canvasContext.fillStyle = c;
             canvasContext.fillRect(x, y, w, h);
         }
 
-        function writeText(style, color, text, x, y) {
+        function writeText(style, color, text, x, y) { //function that writes the score on the game
             canvasContext.font = style;
             canvasContext.fillStyle = color;
             canvasContext.fillText(text, x, y);
         }
     </script>
 </body>
+<!--  controls for game -->
+<h1>BRICKER BREAK</h1> 
+<h2>CONTROLS</h2>
+<h3> W - MOVE LEFT <br> D - MOVE RIGHT <br> HIT EDGES OF PADDLE FOR CRAZY BOUNCE AND MIDDLE FOR NORMAL</h3>
 
 </html>

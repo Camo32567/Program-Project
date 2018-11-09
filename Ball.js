@@ -33,7 +33,7 @@ class Ball { //Class for the ball that holds the draw, move and collison Functio
                         this.xSpeed *= 2;
                    }
             }
-            if(this.x > bouncer.x + bouncer.w * 0.75){
+            if(this.x > bouncer.x + bouncer.w * 0.75){ //when hitting right side of paddle
                 if(this.xSpeed > 0){
                         this.xSpeed *= -1;
                         this.xSpeed *= 1.5;
@@ -50,7 +50,6 @@ class Ball { //Class for the ball that holds the draw, move and collison Functio
                 }
             }
         }
-
     }
 
     ballMove() { //This is what moves the ball when it bounces off walls and keeps it moving
@@ -94,7 +93,6 @@ class Ball { //Class for the ball that holds the draw, move and collison Functio
                     delete Bricks[i];
                     score++
                 } // brick top bounce
-                
                  if (self.y + self.h > paddle.y + paddle.h && self.x < paddle.x + paddle.w) {
                     self.ySpeed *= -1;
                     self.xSpeed *= 1;
@@ -111,18 +109,6 @@ class Ball { //Class for the ball that holds the draw, move and collison Functio
                     delete Bricks[i];
                     score++
                 }
-                //				if(self.y <= paddle.y + paddle.h && self.jumping == true){
-                //				   self.ySpeed *= -1;
-                //				}// head collision 
-                //				
-                //				if(self.x + self.w >= paddle.x && self.y + self.h > paddle.y + 1 && self.x < paddle.x + paddle.w){
-                //				   	self.xSpeed = -0.15;
-                //					console.log('right ribs');
-                //				} // right side of player hits paddle
-                //				if(self.x <= paddle.x + paddle.w && self.y + self.h > paddle.y + 1 && self.x > paddle.x){
-                //				   	self.xSpeed = 0.15;
-                //					console.log('left ribs');
-                //				} // left side of player hits
                 collided = true;
             }
         });
