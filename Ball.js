@@ -22,9 +22,35 @@ class Ball { //Class for the ball that holds the draw, move and collison Functio
 
     bouncePaddle() { //The function that allows the ball to bounce off of bircks and the paddle
         if (this.x > bouncer.x && this.x < bouncer.x + bouncer.w &&
-            this.y > bouncer.y && this.y < bouncer.y + bouncer.h) {
+            this.y + this.h > bouncer.y && this.y < bouncer.y + bouncer.h) {
             this.ySpeed = this.ySpeed * -1;
+            
+            if(this.x < bouncer.x + bouncer.w * 0.25){ // left edge paddle
+                if(this.xSpeed < 0){
+                        this.xSpeed *= -1;
+                        this.xSpeed *= 2;
+                   }else {
+                        this.xSpeed *= 2;
+                   }
+            }
+            if(this.x > bouncer.x + bouncer.w * 0.75){
+                if(this.xSpeed > 0){
+                        this.xSpeed *= -1;
+                        this.xSpeed *= 1.5;
+                   }else {
+                        this.xSpeed *= 1.5;
+                   }
+            }
+            else{ // bounce in middle set back to normal
+                if(this.xSpeed > 0) {
+                    this.xSpeed = 3;
+                }
+                else {
+                    this.xSpeed = -3;
+                }
+            }
         }
+
     }
 
     ballMove() { //This is what moves the ball when it bounces off walls and keeps it moving
@@ -34,7 +60,7 @@ class Ball { //Class for the ball that holds the draw, move and collison Functio
         if (this.x < 0) {
             this.xSpeed = this.xSpeed * -1;
         }
-        if (this.x > canvas.width) {
+        if (this.x + this.w > canvas.width) {
             this.xSpeed = this.xSpeed * -1;
         }
         if (this.y < 0) {
@@ -43,19 +69,6 @@ class Ball { //Class for the ball that holds the draw, move and collison Functio
         if (this.y > canvas.height - BALL_HEIGHT) {
             this.ySpeed = 0;
             this.xSpeed = 0;
-        }
-    }
-
-    diffuculty() { // Changes the speed of the ball depending on if the player wants the diffuculty to be easy or hard from the prompt that is asked before the game
-        if (gameDif === "easy") {
-            this.xSpeed = -4;
-            this.ySpeed = 3;
-            gameDif = null;
-        }
-        if (gameDif === "hard") {
-            this.xSpeed = -5;
-            this.ySpeed = 4;
-            gameDif = null;
         }
     }
 
@@ -75,18 +88,25 @@ class Ball { //Class for the ball that holds the draw, move and collison Functio
         Bricks.forEach(function (paddle, i) {
             if (self.haspaddleHit(paddle)) {
 
-                if (self.y + self.h >= paddle.y && self.y + self.h > paddle.y + paddle.h) {
+                if (self.y < paddle.y && self.x + self.w > paddle.x) {
                     self.ySpeed *= -1;
                     self.xSpeed *= 1;
                     delete Bricks[i];
                     score++
-                } // landing ontop paddle
-                if (self.x + self.w >= paddle.x && self.x < paddle.x + paddle.w / 6) { // left edge bounce off brick horizontal move
+                } // brick top bounce
+                
+                 if (self.y + self.h > paddle.y + paddle.h && self.x < paddle.x + paddle.w) {
+                    self.ySpeed *= -1;
+                    self.xSpeed *= 1;
+                    delete Bricks[i];
+                    score++
+                } // bottom brick bounce
+                if (self.x < paddle.x && self.y < paddle.y + paddle.h) { // left edge bounce off brick horizontal move
                     self.xSpeed *= -1;
                     delete Bricks[i];
                     score++
                 }
-                if (self.x < paddle.x + paddle.w && self.x > paddle.x + (paddle.w / 6 * 5)) { // right edge bounce off brick horizontal move
+                if (self.x + self.w > paddle.x + paddle.w && self.y < paddle.y + paddle.h) { // right edge bounce off brick horizontal move
                     self.xSpeed *= -1;
                     delete Bricks[i];
                     score++

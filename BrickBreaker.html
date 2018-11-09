@@ -37,8 +37,6 @@
         var gameSetUp = true;
 
         var score = 0; //score
-        
-        var gameDif = prompt("Please enter your diffuculty Easy or Hard").toLowerCase(); // prompt to ask game diffuculty
 
         window.onload = function() {
             canvas = document.getElementById('gameCanvas');
@@ -50,12 +48,12 @@
             setInterval(mainLoop, 1000 / 60);
         }
 
+         diffucultyPromt();
+        
         function mainLoop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black'); //background
             writeText('15pt Arial', 'white', 'Score: ' + score, 675, 450);
 
-            ball.diffuculty();
-            
             ball.drawBall();
             ball.ballMove();
             ball.hasCollided();
@@ -96,6 +94,22 @@
         function brickSetUp() {
             for (i = 0; i < brickTotal; i++) {
                 makeBricks();
+            }
+        }
+
+        function diffucultyPromt() {
+            
+            var gameDif = ''; // prompt to ask game diffuculty
+
+            while (gameDif !== 'easy' && gameDif !== 'hard' || gameDif == '' || gameDif == null) {
+                gameDif = prompt("Please enter your diffuculty Easy or Hard",'easy') || '';
+                gameDif = gameDif.toLowerCase();
+            }
+            if (gameDif == 'easy') {
+                brickTotal = 13 * 3;
+            }
+            if (gameDif == "hard") {
+                brickTotal = 13 * 5;
             }
         }
 
