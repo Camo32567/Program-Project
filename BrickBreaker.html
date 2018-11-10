@@ -6,8 +6,10 @@
 </head>
 
 <body>
-    <canvas id="gameCanvas" width="800" height="500"></canvas>
+    <canvas id="gameCanvas" width="800" height="500"></canvas> <!-- Size of game canvas -->
+    <!-- Size of game screen-->
     <script src="Bouncer.js"></script>
+    <!--  links game to following seperate javascript files -->
     <script src="Ball.js"></script>
     <script src="Brick.js"></script>
     <script>
@@ -34,39 +36,39 @@
         var brickCount = 0;
         var Bricks = [];
 
-        var gameSetUp = true;
+        var gameSetUp = true; // var to say to setupgame in function later
+        
+        var score = 0; //score       
 
-        var score = 0; //score
-
-        window.onload = function() {
+        window.onload = function() { // sets up the game 
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
 
             document.addEventListener('keydown', keyPress);
             document.addEventListener('keyup', keyRelease);
 
-            setInterval(mainLoop, 1000 / 60);
+            setInterval(mainLoop, 1000 / 60); //refresh rate of the game and how often the main loop functions run 
         }
 
-         diffucultyPromt();
-        
+        diffucultyPromt();
+
         function mainLoop() { //main loop that constantly refreshes the game and fucntions to keep them going and moving
             colorRect(0, 0, canvas.width, canvas.height, 'black'); //background
             writeText('15pt Arial', 'white', 'Score: ' + score, 675, 450);
 
-            ball.drawBall();
-            ball.ballMove();
-            ball.hasCollided();
+            ball.drawBall(); //Draws the ball from ball.js  
+            ball.ballMove(); //moves the ball from ball.js
+            ball.hasCollided(); //what happens when ball collides from ball .js
 
             bouncer.drawBouncer(); // draws the player/bouncer from bouncer.js
             bouncer.playerMove(); // makes it so the player can move when keys are pressed form bouncer.js
             ball.bouncePaddle();
 
-            if (gameSetUp) {
+            if (gameSetUp) { //sets up bricks for game when it starts
                 brickSetUp();
                 gameSetUp = false;
             }
-            if (Bricks.length > 0) {
+            if (Bricks.length > 0) { //draws the brick in the array
                 Bricks.forEach(function(brick, index) {
                     brick.drawBrick();
                 });
@@ -91,24 +93,24 @@
             }
         }
 
-        function brickSetUp() {
+        function brickSetUp() { //This fuction runs the function makeBricks from Brick.js until which pushes bricks into an array and will continue to do so until the total number of bricks there is suppost to be is met.
             for (i = 0; i < brickTotal; i++) {
                 makeBricks();
             }
         }
 
-        function diffucultyPromt() {
-            
-            var gameDif = ''; // prompt to ask game diffuculty
+        function diffucultyPromt() { //function to ask game diffuculty
 
+              var gameDif = ''; // holds what diffucutly is set after being asked using prompt below
+            
             while (gameDif !== 'easy' && gameDif !== 'hard' || gameDif == '' || gameDif == null) {
-                gameDif = prompt("Please enter your diffuculty Easy or Hard",'easy') || '';
-                gameDif = gameDif.toLowerCase();
+                gameDif = prompt("Please enter your diffuculty Easy or Hard", 'easy') || '';
+                gameDif = gameDif.toLowerCase(); //If the diffuculty is not equal to easy or hard or is equal to nothing or null than it will repromt question while setting it to lowercase until easy or hard is input
             }
-            if (gameDif == 'easy') {
+            if (gameDif == 'easy') { //If diffuculty is set to easy than therewill be 3 rows of bricks
                 brickTotal = 13 * 3;
             }
-            if (gameDif == "hard") {
+            if (gameDif == "hard") { //If diffuculty is set to hard than there will be 5 rows of bricks
                 brickTotal = 13 * 5;
             }
         }
@@ -123,11 +125,18 @@
             canvasContext.fillStyle = color;
             canvasContext.fillText(text, x, y);
         }
+
     </script>
 </body>
+
+<br>
+<input type="button" value="Reset Game" onClick="window.location.reload()"> <!-- Resets page and game after lose -->
+<br>
+
 <!--  controls for game -->
-<h1>BRICKER BREAK</h1> 
+<h1>BRICKER BREAK</h1>
 <h2>CONTROLS</h2>
 <h3> W - MOVE LEFT <br> D - MOVE RIGHT <br> HIT EDGES OF PADDLE FOR CRAZY BOUNCE AND MIDDLE FOR NORMAL</h3>
+<h4> BY CAMERON MILLER </h4>
 
 </html>
